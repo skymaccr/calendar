@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>    
+    <head>
+           <title>Test Calendar</title> 
+    </head>
+    <body>
+        <form name="myForm" onsubmit="loadCalendar()" method="post" >
+            <div>
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" value="" required>
+                <label for="numberOfDates">Number of Days:</label>
+                <input type="number" id="numberOfDates" value="" min=1 required>
+                <label for="countryCode">Country Code:</label>
+                <input type="text" id="countryCode" value="" required>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+
+        <div id="calendar"></div>
+
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script src="../calendar/calendar.js" >        
+        </script>
+    </body>
+</html>
