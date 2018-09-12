@@ -14,34 +14,37 @@ function loadCalendar(){
     var calendar = [];
 
     //read parameters from interface
-    var startDate = new Date($('#startDate').val());
+    var date = new Date($('#startDate').val())
+    var userTimezoneOffset = date.getTimezoneOffset() * 60000;
+    var startDate = new Date(date.getTime() + userTimezoneOffset);
     var numberOfDays = parseInt($('#numberOfDates').val(),10);
     var countryCode = $('#countryCode').val();
 
     //calculate end date
-    var endDate = startDate.addDays(numberOfDays);
-
+    var endDate = startDate.addDays(numberOfDays - 1);
     //caculate day of the week when all start
     var startDay = startDate.getDay(); // 0 Sunday 
-
     //calculate how many months I have to paint
     var monthsToPaint = (endDate.getFullYear()*12 + endDate.getMonth()) - (startDate.getFullYear()*12 + startDate.getMonth()) + 1;    
-
-    //days in month
-    var daysInMonth = (startDate.monthDays() - startDate.getDate());
+    //calculate days pending in the current month
+    var daysInMonth = (startDate.monthDays() - startDate.getDate()) + 1;
 
     for(var i=1;i<= monthsToPaint; i++){
-
         //get the month title
         locale = "en-us",
         monthName = startDate.toLocaleString(locale, { month: "long" });
 
-        //calculate number of days to paint ? 
+        //calculate number of days to paint ?         
         var daysToPaint = 0;        
         
+        if(daysInMonth > numberOfDays)
+            daysToPaint = numberOfDays;
+        else
+            daysToPaint = daysInMonth;
 
         numberOfDays = numberOfDays - daysToPaint;
 
+        //get the month to paint
         var month = {
             month : monthName,
             startDate: startDate,
@@ -54,10 +57,9 @@ function loadCalendar(){
         
         //calculate start date for next month
         startDate = startDate.addDays(daysInMonth);
-
+        daysInMonth = startDate.monthDays();
         //calculate the day the month starts
         startDay = startDate.getDay(); // 0 Sunday 
-        
         //get holidays for that month
     }
 

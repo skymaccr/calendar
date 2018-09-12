@@ -4,7 +4,7 @@
            <title>Test Calendar</title> 
     </head>
     <body>
-        <form name="myForm" onsubmit="loadCalendar()" method="post" >
+        <form name="myForm" onsubmit="return false" method="post" enctype="multipart/form-data" >
             <div>
                 <label for="startDate">Start Date:</label>
                 <input type="date" id="startDate" value="" required>
@@ -13,7 +13,7 @@
                 <label for="countryCode">Country Code:</label>
                 <input type="text" id="countryCode" value="" required>
             </div>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" onclick="loadCalendar()">
         </form>
 
         <div id="calendar"></div>
