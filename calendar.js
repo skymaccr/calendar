@@ -47,7 +47,7 @@ function loadCalendar(){
         //get the month to paint
         var month = {
             month : monthName,
-            startDate: startDate,
+            startDate: startDate.getDate(),
             weekStartDate: startDay,
             daysToPaint: daysToPaint,
             holidays: []
@@ -64,7 +64,29 @@ function loadCalendar(){
     }
 
 
-    $('#calendar').text(JSON.stringify(calendar));
+    $('.calendar').text(JSON.stringify(calendar));
+
+    var app = new Vue({
+        el: '#app',
+        data: {todos: calendar},
+        methods: {
+            getMonth : function (month) {
+                var week = [];
+                for(var i=0; i< 7;i++)
+                {
+                    if(i === month.weekStartDate){                        
+                        for(var j=0; j <= month.daysToPaint; j++)
+                        {
+                            week.push(month.startDate + j);
+                        }
+                        break;
+                    }
+                    week.push(" ");                        
+                }
+                return week;
+            },
+        }
+    });
     
 };
 

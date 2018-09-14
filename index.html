@@ -1,23 +1,86 @@
 <!DOCTYPE html>
 <html>    
     <head>
-           <title>Test Calendar</title> 
+           <title>Test Calendar</title>
+           <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>            
+           <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+           <link href="../calendar/calendar.css" rel="stylesheet">
     </head>
     <body>
         <form name="myForm" onsubmit="return false" method="post" enctype="multipart/form-data" >
-            <div>
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate" value="" required>
-                <label for="numberOfDates">Number of Days:</label>
-                <input type="number" id="numberOfDates" value="" min=1 required>
-                <label for="countryCode">Country Code:</label>
-                <input type="text" id="countryCode" value="" required>
+            
+            <div class="form-group row">
+                <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
+                <div class="col-sm-5">
+                    <input type="date" id="startDate" value="" class="form-control" required>
+                </div>
             </div>
-            <input type="submit" value="Submit" onclick="loadCalendar()">
+
+            <div class="form-group row">
+                <label for="numberOfDates" class="col-sm-2 col-form-label">Number of Days:</label>
+                <div class="col-sm-5">
+                    <input type="number" id="numberOfDates" value="" min=1 class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="countryCode" class="col-sm-2 col-form-label">Country Code:</label>
+                <div class="col-sm-5">
+                    <input type="text" id="countryCode" value="" class="form-control" required>
+                </div>
+            </div>
+
+            <input  type="submit" value="Submit" onclick="loadCalendar()" class="btn btn-primary">
+
         </form>
 
-        <div id="calendar"></div>
+        <div class="container" id="app">
+            <div class="row" v-for="todo in todos">
+                <div class="col-3" >
+                    <div class="row">
+                            <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ todo.month }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            S
+                        </div>
+                        <div class="col">
+                            M
+                        </div>
+                        <div class="col">
+                            T
+                        </div>
+                        <div class="col">
+                            W
+                        </div>
+                        <div class="col">
+                            T
+                        </div>
+                        <div class="col">
+                            F
+                        </div>
+                        <div class="col">
+                            S
+                        </div>
+                    </div>
+                    <div class="row seven-cols">
+                        <div class="col-1" v-for="n in getMonth(todo)">
+                                {{ n }} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        
 
+       <div class="calendar"></div>
+
+       
         <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
