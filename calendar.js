@@ -18,7 +18,7 @@ function loadCalendar(){
     var userTimezoneOffset = date.getTimezoneOffset() * 60000;
     var startDate = new Date(date.getTime() + userTimezoneOffset);
     var numberOfDays = parseInt($('#numberOfDates').val(),10);
-    var countryCode = $('#countryCode').val();
+    
 
     //calculate end date
     var endDate = startDate.addDays(numberOfDays - 1);
@@ -51,7 +51,7 @@ function loadCalendar(){
             startDate: startDate.getDate(),
             weekStartDate: startDay,
             daysToPaint: daysToPaint,
-            holidays: []
+            monthNumber: startDate.getMonth()+1,
         };
 
         calendar.push(month);
@@ -70,7 +70,7 @@ function loadCalendar(){
         methods: {
             getMonth : function (month) {
                 var week = [];
-                for(var i=0; i< 7;i++)
+                for(var i=0; i < 7;i++)
                 {
                     if(i === month.weekStartDate){                        
                         for(var j=0; j < month.daysToPaint; j++)
@@ -81,7 +81,28 @@ function loadCalendar(){
                     }
                     week.push(" ");                        
                 }
+
+                //complete blank days in the last week
+                for(var i=0; i < week.length % 7; i++)
+                {
+                    week.push(" "); 
+                }
+
                 return week;
+            },
+            isWeekend : function(index){
+                var weekends = [0,6,7,13,14,20,21,27,28,34,35];
+                return weekends.includes(index);
+            },
+            isHoliday : function(day, monthNumber){
+                var usHolidays = ['1/1','1/21','2/18','5/27','7/4','9/2','11/28','11/29','12/25'];
+                var crcHolidays = ['1/1','4/11','5/1','7/25','8/2','8/15','9/15','10/12','12/25'];
+                var toFind = monthNumber +'/'+ day;
+                var countryCode = $('#countryCode').val();
+                if(countryCode == 'cr')
+                    return crcHolidays.includes(toFind);
+                else
+                    return usHolidays.includes(toFind);
             },
         }
     });

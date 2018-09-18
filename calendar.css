@@ -42,6 +42,12 @@
   .disabled {
     background-color: grey !important;
   }
+  .weekend {
+    background-color:yellow !important;
+  }
+  .holiday {
+    background-color:red !important;
+  }
   .grid-calendar .calendar-week-header .grid-cell > div > div {
     padding-bottom: 10px;
     height: auto;

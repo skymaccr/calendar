@@ -26,7 +26,7 @@
             <div class="form-group row">
                 <label for="countryCode" class="col-sm-2 col-form-label">Country Code:</label>
                 <div class="col-sm-5">
-                    <input type="text" id="countryCode" value="" class="form-control" required>
+                    <input type="text" id="countryCode" placeholder="us OR cr" value="" class="form-control" required>
                 </div>
             </div>
 
@@ -59,14 +59,25 @@
 
 
                         <div class="row calendar-week">
-                            <template v-for="n in getMonth(todo)">
-                                   
+                            <template v-for="(n, i) in getMonth(todo)">                                   
                                     <div class="col-xs-1 grid-cell disabled"  v-if="n == ' '" >                                        
                                         {{ n }} 
                                     </div>
-                                    <div class="col-xs-1 grid-cell" v-else>
-                                        {{ n }} 
-                                    </div>
+                                    <template v-else>
+                                        <template v-if="isHoliday(n, todo.monthNumber)">
+                                            <div class="col-xs-1 grid-cell holiday">
+                                                {{ n }}
+                                            </div>
+                                        </template>
+                                        <template v-else>
+                                            <div class="col-xs-1 grid-cell weekend" v-if="isWeekend(i)">
+                                                {{ n }}
+                                            </div>
+                                            <div class="col-xs-1 grid-cell" v-else>
+                                                {{ n }}
+                                            </div>
+                                        </template>
+                                    </template>                                    
                             </template>
                         </div>
                     </div>
