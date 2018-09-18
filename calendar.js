@@ -75,7 +75,7 @@ function loadCalendar(){
                 for(var i=0; i< 7;i++)
                 {
                     if(i === month.weekStartDate){                        
-                        for(var j=0; j <= month.daysToPaint; j++)
+                        for(var j=0; j < month.daysToPaint; j++)
                         {
                             week.push(month.startDate + j);
                         }
