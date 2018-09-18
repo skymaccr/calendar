@@ -33,6 +33,7 @@ function loadCalendar(){
         //get the month title
         locale = "en-us",
         monthName = startDate.toLocaleString(locale, { month: "long" });
+        var year = startDate.getFullYear();
 
         //calculate number of days to paint ?         
         var daysToPaint = 0;        
@@ -46,7 +47,7 @@ function loadCalendar(){
 
         //get the month to paint
         var month = {
-            month : monthName,
+            month : monthName +' '+ year,
             startDate: startDate.getDate(),
             weekStartDate: startDay,
             daysToPaint: daysToPaint,
@@ -62,9 +63,6 @@ function loadCalendar(){
         startDay = startDate.getDay(); // 0 Sunday 
         //get holidays for that month
     }
-
-
-    $('.calendar').text(JSON.stringify(calendar));
 
     var app = new Vue({
         el: '#app',
